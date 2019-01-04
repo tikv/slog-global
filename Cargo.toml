@@ -1,0 +1,19 @@
+[package]
+name = "slog-global"
+version = "0.1.0"
+authors = ["Breezewish <me@breeswish.org>"]
+description = "Global loggers for slog-rs. Similar to slog-scope but more simple."
+license = "MIT"
+homepage = "https://github.com/breeswish/slog-global"
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+slog = "^2"
+arc-swap = "0.3"
+lazy_static = "1.2"
+
+[dev-dependencies]
+sloggers = "0.3"
+rand = "0.6"
