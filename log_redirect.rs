@@ -17,6 +17,16 @@ fn log_to_slog_level(level: log::LogLevel) -> Level {
     }
 }
 
+fn slog_to_log_level(level: Level) -> log::LogLevel {
+    match level {
+        Level::Critical | Level::Error => log::LogLevel::Error,
+        Level::Warning => log::LogLevel::Warn,
+        Level::Debug => log::LogLevel::Debug,
+        Level::Trace => log::LogLevel::Trace,
+        Level::Info => log::LogLevel::Info,
+    }
+}
+
 impl log::Log for SlogBackend {
     fn enabled(&self, metadata: &log::Metadata) -> bool {
         true
@@ -50,10 +60,12 @@ impl log::Log for SlogBackend {
 ///
 /// Logs will be always outputted to the active global logger at the time of logging
 /// (instead of the global logger when this function is called).
-pub fn redirect_std_log(level: Option<log::LogLevel>) -> Result<(), log::SetLoggerError> {
+///
+/// Basically this function should be called only once.
+pub fn redirect_std_log(level: Option<Level>) -> Result<(), log::SetLoggerError> {
     log::set_logger(move |max_log_level| {
         if let Some(level) = level {
-            max_log_level.set(level.to_log_level_filter());
+            max_log_level.set(slog_to_log_level(level).to_log_level_filter());
         }
         Box::new(SlogBackend)
     })
