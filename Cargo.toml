@@ -6,14 +6,24 @@ description = "Global loggers for slog-rs. Similar to slog-scope but more simple
 license = "MIT"
 homepage = "https://github.com/breeswish/slog-global"
 
+[features]
+default = ["log"]
+
 [lib]
 path = "lib.rs"
 
 [dependencies]
-slog = "^2"
+slog = "2"
 arc-swap = "0.3"
 lazy_static = "1.2"
+log = { version = "0.3", optional = true }
 
 [dev-dependencies]
 sloggers = "0.3"
 rand = "0.6"
+
+[package.metadata.docs.rs]
+all-features = true
+
+[package.metadata.playground]
+all-features = true
