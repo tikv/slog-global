@@ -21,6 +21,11 @@ use arc_swap::{ArcSwap, Lease};
 use slog::Logger;
 use std::sync::Arc;
 
+#[cfg(feature = "log")]
+mod log_redirect;
+#[cfg(feature = "log")]
+pub use log_redirect::*;
+
 /// Creates a logger that simply discards everything.
 fn discard_logger() -> Logger {
     Logger::root(slog::Discard, o!())
