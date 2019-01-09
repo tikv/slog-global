@@ -1,5 +1,6 @@
 extern crate log;
 
+use slog;
 use slog::Level;
 
 /// A slog powered log backend.
@@ -28,11 +29,11 @@ fn slog_to_log_level(level: Level) -> log::LogLevel {
 }
 
 impl log::Log for SlogBackend {
-    fn enabled(&self, metadata: &log::Metadata) -> bool {
+    fn enabled(&self, _metadata: &log::LogMetadata) -> bool {
         true
     }
 
-    fn log(&self, record: &log::Record) {
+    fn log(&self, r: &log::LogRecord) {
         let level = log_to_slog_level(r.metadata().level());
 
         let args = r.args();
