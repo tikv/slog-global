@@ -1,5 +1,3 @@
-#![feature(use_extern_macros)]
-
 extern crate slog;
 #[macro_use]
 extern crate slog_global;
