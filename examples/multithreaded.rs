@@ -1,13 +1,13 @@
-#[macro_use(slog_info, o)]
+#![feature(use_extern_macros)]
+
 extern crate slog;
 #[macro_use]
 extern crate slog_global;
+extern crate slog_term;
 extern crate rand;
-extern crate sloggers;
 
 use rand::Rng;
-use sloggers::terminal::TerminalLoggerBuilder;
-use sloggers::Build;
+use slog::Drain;
 use std::thread;
 use std::time::Duration;
 
@@ -16,8 +16,11 @@ fn spawn_set_logger_1() {
         thread::sleep(Duration::from_millis(
             rand::thread_rng().gen_range(1000, 3000),
         ));
-        let logger = TerminalLoggerBuilder::new().build().unwrap();
-        let logger = slog::Logger::root(logger, o!("id" => "logger1"));
+        let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
+        let logger = slog::Logger::root(
+            slog_term::FullFormat::new(plain)
+                .build().fuse(), slog::o!("id" => "logger1")
+        );
         println!("set logger 1");
         slog_global::set_global(logger);
     });
@@ -28,8 +31,11 @@ fn spawn_set_logger_2() {
         thread::sleep(Duration::from_millis(
             rand::thread_rng().gen_range(1000, 3000),
         ));
-        let logger = TerminalLoggerBuilder::new().build().unwrap();
-        let logger = slog::Logger::root(logger, o!("id" => "logger2"));
+        let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
+        let logger = slog::Logger::root(
+            slog_term::FullFormat::new(plain)
+                .build().fuse(), slog::o!("id" => "logger2")
+        );
         println!("set logger 2");
         slog_global::set_global(logger);
     });

@@ -19,7 +19,7 @@ lazy_static = "1.2"
 log = { version = "0.3", optional = true }
 
 [dev-dependencies]
-sloggers = "0.3"
+slog-term = "2.4"
 rand = "0.6"
 
 [package.metadata.docs.rs]
