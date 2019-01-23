@@ -1,16 +1,19 @@
-#[macro_use(slog_info)]
 extern crate slog;
 #[macro_use]
 extern crate slog_global;
-extern crate sloggers;
+extern crate slog_term;
 
-use sloggers::terminal::TerminalLoggerBuilder;
-use sloggers::Build;
+use slog::Drain;
 
 fn main() {
     info!("This will not be printed"; "foo" => "bar");
 
-    let logger = TerminalLoggerBuilder::new().build().unwrap();
+    let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
+    let logger = slog::Logger::root(
+        slog_term::FullFormat::new(plain)
+            .build().fuse(), slog::o!()
+    );
+
     slog_global::set_global(logger);
 
     info!("This should be printed"; "hello" => "world");
