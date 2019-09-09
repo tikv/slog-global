@@ -1,8 +1,8 @@
 extern crate slog;
 #[macro_use]
 extern crate slog_global;
-extern crate slog_term;
 extern crate rand;
+extern crate slog_term;
 
 use rand::Rng;
 use slog::Drain;
@@ -16,8 +16,8 @@ fn spawn_set_logger_1() {
         ));
         let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
         let logger = slog::Logger::root(
-            slog_term::FullFormat::new(plain)
-                .build().fuse(), slog::o!("id" => "logger1")
+            slog_term::FullFormat::new(plain).build().fuse(),
+            slog::o!("id" => "logger1"),
         );
         println!("set logger 1");
         slog_global::set_global(logger);
@@ -31,8 +31,8 @@ fn spawn_set_logger_2() {
         ));
         let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
         let logger = slog::Logger::root(
-            slog_term::FullFormat::new(plain)
-                .build().fuse(), slog::o!("id" => "logger2")
+            slog_term::FullFormat::new(plain).build().fuse(),
+            slog::o!("id" => "logger2"),
         );
         println!("set logger 2");
         slog_global::set_global(logger);
