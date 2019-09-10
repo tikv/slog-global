@@ -9,10 +9,7 @@ fn main() {
     info!("This will not be printed"; "foo" => "bar");
 
     let plain = slog_term::PlainSyncDecorator::new(std::io::stdout());
-    let logger = slog::Logger::root(
-        slog_term::FullFormat::new(plain)
-            .build().fuse(), slog::o!()
-    );
+    let logger = slog::Logger::root(slog_term::FullFormat::new(plain).build().fuse(), slog::o!());
 
     slog_global::set_global(logger);
 
