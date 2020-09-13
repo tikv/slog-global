@@ -3,7 +3,7 @@ rust:
   - stable
   - beta
   - nightly
-  - nightly-2018-12-06
+  - nightly-2020-07-01
 
 cache: cargo
 
