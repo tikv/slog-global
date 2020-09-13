@@ -1,13 +1,9 @@
-extern crate slog;
-#[macro_use]
-extern crate slog_global;
-extern crate rand;
-extern crate slog_term;
+use std::thread;
+use std::time::Duration;
 
 use rand::Rng;
 use slog::Drain;
-use std::thread;
-use std::time::Duration;
+use slog_global::info;
 
 fn spawn_set_logger_1() {
     thread::spawn(move || loop {
