@@ -1,9 +1,5 @@
-extern crate slog;
-#[macro_use]
-extern crate slog_global;
-extern crate slog_term;
-
 use slog::Drain;
+use slog_global::info;
 
 fn main() {
     info!("This will not be printed"; "foo" => "bar");

@@ -5,6 +5,7 @@ authors = ["Breezewish <me@breeswish.org>"]
 description = "Global loggers for slog-rs. Similar to slog-scope but more simple."
 license = "MIT"
 homepage = "https://github.com/breeswish/slog-global"
+edition = "2018"
 
 [features]
 default = ["log"]
@@ -13,14 +14,14 @@ default = ["log"]
 path = "lib.rs"
 
 [dependencies]
-slog = "2"
-arc-swap = "0.3"
-lazy_static = "1.2"
+slog = "2.5"
+arc-swap = "0.4"
+lazy_static = "1.4"
 log = { version = "0.4", optional = true }
 
 [dev-dependencies]
-slog-term = "2.4"
-rand = "0.6"
+slog-term = "2.6"
+rand = "0.7"
 
 [package.metadata.docs.rs]
 all-features = true

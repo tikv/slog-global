@@ -1,7 +1,4 @@
-extern crate log;
-
-use slog;
-use slog::Level;
+use slog::{b, Level};
 
 /// A slog powered log backend.
 ///
@@ -53,7 +50,7 @@ impl log::Log for SlogBackend {
             level,
             tag: target,
         };
-        ::borrow_global().log(&slog::Record::new(&s, args, b!()))
+        crate::borrow_global().log(&slog::Record::new(&s, args, b!()))
     }
 
     fn flush(&self) {}
