@@ -49,7 +49,7 @@ pub fn set_global(l: Logger) {
 /// [`AsyncBuilder::build_with_guard`]: https://docs.rs/slog-async/2.5.0/slog_async/struct.AsyncBuilder.html#method.build_with_guard
 pub fn set_global_with_async_guard(logger: Logger, async_guard: AsyncGuard) {
     GLOBAL_LOGGER.store(Arc::new(logger));
-    *GLOBAL_LOGGER_ASYNC_GUARD
+    GLOBAL_LOGGER_ASYNC_GUARD
         .lock()
         .unwrap()
         .replace(async_guard);
