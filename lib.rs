@@ -41,11 +41,15 @@ pub fn set_global(l: Logger) {
 
 /// Sets the global `Logger` and [`AsyncGuard`].
 ///
-/// If [`slog-async`] is used, the passed [`AsyncGuard`], created via [`AsyncBuilder::build_with_guard`],
-/// can guarantee logs will be flushed fully when clearing or switching the global `Logger`.
+/// This function is provided for the situations where
+/// - One of children of the `logger` is an __async__ `Drain` which is provided by [`slog-async`];
+/// - Logs are intended to __flush__ when dropping this `logger`.
+///
+/// The [`AsyncGuard`] should be associated with the async `Drain`. In other words, the drain and
+/// the guard should come from the same [`AsyncBuilder::build_with_guard`] call.
 ///
 /// [`slog-async`]: https://crates.io/crates/slog-async
-/// [`AsyncGuard`]: https://docs.rs/slog-async/2.5.0/slog_async/struct.AsyncGuard.html\
+/// [`AsyncGuard`]: https://docs.rs/slog-async/2.5.0/slog_async/struct.AsyncGuard.html
 /// [`AsyncBuilder::build_with_guard`]: https://docs.rs/slog-async/2.5.0/slog_async/struct.AsyncBuilder.html#method.build_with_guard
 pub fn set_global_with_async_guard(logger: Logger, async_guard: AsyncGuard) {
     GLOBAL_LOGGER.store(Arc::new(logger));
